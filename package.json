@@ -1,0 +1,27 @@
+{
+  "name": "gds-konnect-pro",
+  "version": "1.0.0",
+  "description": "Sistema de Administración de Boletos KonnectPro-GDS",
+  "main": "index2.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "serve -s . -p $PORT"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ref0612/gdskonnect.git"
+  },
+  "keywords": ["gds", "konnectpro", "bus", "ticketing"],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ref0612/gdskonnect/issues"
+  },
+  "homepage": "https://github.com/ref0612/gdskonnect#readme",
+  "dependencies": {
+    "serve": "^14.2.0"
+  },
+  "engines": {
+    "node": ">=14.x"
+  }
+}
