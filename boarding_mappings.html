@@ -1,0 +1,98 @@
+<!-- Boarding Stage Mappings Content -->
+<div id="boarding-mappings-content" class="tab-content">
+  <div class="bg-white p-4 rounded-b shadow">
+    <div class="flex items-center gap-4 mb-4">
+      <label class="text-sm font-medium">Select Travel:</label>
+      <select class="border border-gray-300 rounded p-2 text-sm w-48">
+        <option>Gama Bus</option>
+      </select>
+    </div>
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-lg font-medium">Boarding Stage Mappings for Gama Bus</h3>
+      <div class="flex gap-2">
+        <button class="flex items-center gap-1 border border-gray-300 rounded-button px-3 py-1.5 text-sm whitespace-nowrap">
+          <div class="w-4 h-4 flex items-center justify-center">
+            <i class="ri-search-line"></i>
+          </div>
+          <span>Search</span>
+        </button>
+        <button class="flex items-center gap-1 border border-gray-300 rounded-button px-3 py-1.5 text-sm whitespace-nowrap">
+          <div class="w-4 h-4 flex items-center justify-center">
+            <i class="ri-add-line"></i>
+          </div>
+          <span>Create New</span>
+        </button>
+      </div>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full border-collapse">
+        <thead>
+          <tr class="bg-gray-100 border-b border-gray-300">
+            <th class="text-left p-2 text-sm font-medium w-16">#</th>
+            <th class="text-left p-2 text-sm font-medium">Our stage</th>
+            <th class="text-left p-2 text-sm font-medium">Api stage name</th>
+            <th class="text-left p-2 text-sm font-medium">Api stage bundle</th>
+            <th class="text-left p-2 text-sm font-medium">Api stage longitude</th>
+            <th class="text-center p-2 text-sm font-medium w-32">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-row border-b border-gray-200">
+            <td class="p-2 text-sm">8,716</td>
+            <td class="p-2 text-sm">Santiago Terminal Sur, Santiago</td>
+            <td class="p-2 text-sm">Santiago Terminal Sur</td>
+            <td class="p-2 text-sm">-</td>
+            <td class="p-2 text-sm">-</td>
+            <td class="p-2 text-sm text-center">
+              <div class="flex justify-center gap-2">
+                <button class="text-primary hover:underline" onclick="openMappingModal(this)">Edit</button>
+                <button class="text-primary hover:underline">Delete</button>
+                <button class="text-primary hover:underline">Show</button>
+              </div>
+            </td>
+          </tr>
+          <tr class="table-row border-b border-gray-200">
+            <td class="p-2 text-sm">44</td>
+            <td class="p-2 text-sm">Puerto Montt Terminal, Puerto Montt</td>
+            <td class="p-2 text-sm">Terminal Puerto Montt</td>
+            <td class="p-2 text-sm">-</td>
+            <td class="p-2 text-sm">-</td>
+            <td class="p-2 text-sm text-center">
+              <div class="flex justify-center gap-2">
+                <button class="text-primary hover:underline" onclick="openMappingModal(this)">Edit</button>
+                <button class="text-primary hover:underline">Delete</button>
+                <button class="text-primary hover:underline">Show</button>
+              </div>
+            </td>
+          </tr>
+          <tr class="table-row border-b border-gray-200">
+            <td class="p-2 text-sm">58</td>
+            <td class="p-2 text-sm">Terminal de Osorno, Osorno</td>
+            <td class="p-2 text-sm">Terminal Osorno</td>
+            <td class="p-2 text-sm">-</td>
+            <td class="p-2 text-sm">-</td>
+            <td class="p-2 text-sm text-center">
+              <div class="flex justify-center gap-2">
+                <button class="text-primary hover:underline" onclick="openMappingModal(this)">Edit</button>
+                <button class="text-primary hover:underline">Delete</button>
+                <button class="text-primary hover:underline">Show</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="flex justify-between items-center mt-4">
+      <div class="text-sm">40 Found</div>
+      <div class="flex items-center gap-2">
+        <button class="flex items-center justify-center w-6 h-6 border border-gray-300 rounded">
+          <i class="ri-arrow-left-s-line"></i>
+        </button>
+        <span class="text-sm">1 2 3</span>
+        <button class="flex items-center justify-center w-6 h-6 border border-gray-300 rounded">
+          <i class="ri-arrow-right-s-line"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
