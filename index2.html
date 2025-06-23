@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KonnectPro-GDS - Sistema de Administración de Boletos</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#2563eb',secondary:'#64748b'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+</head>
+<body class="flex h-screen bg-gray-100 relative">
+    <!-- Sidebar Navigation -->
+    <div class="w-[55px] bg-primary text-white flex flex-col items-center">
+        <div class="py-4 flex flex-col items-center gap-6 w-full">
+            <a href="index2.html" class="sidebar-item active w-full flex flex-col items-center py-2">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-home-line ri-lg"></i>
+                </div>
+                <span class="text-[10px] mt-1">Inicio</span>
+            </a>
+            <a href="#" class="sidebar-item w-full flex flex-col items-center py-2">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-file-chart-line ri-lg"></i>
+                </div>
+                <span class="text-[10px] mt-1">Reportes</span>
+            </a>
+            <a href="#" class="sidebar-item w-full flex flex-col items-center py-2">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-ticket-line ri-lg"></i>
+                </div>
+                <span class="text-[10px] mt-1">KonnectPro-GDS</span>
+            </a>
+            <a href="#" class="sidebar-item w-full flex flex-col items-center py-2">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-money-dollar-circle-line ri-lg"></i>
+                </div>
+                <span class="text-[10px] mt-1">Finanzas</span>
+            </a>
+            <a href="#" class="sidebar-item w-full flex flex-col items-center py-2">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-coupon-line ri-lg"></i>
+                </div>
+                <span class="text-[10px] mt-1">Promociones</span>
+            </a>
+            <a href="#" class="sidebar-item w-full flex flex-col items-center py-2">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-puzzle-line ri-lg"></i>
+                </div>
+                <span class="text-[10px] mt-1">Extensiones</span>
+            </a>
+            <a href="#" class="sidebar-item w-full flex flex-col items-center py-2">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-global-line ri-lg"></i>
+                </div>
+                <span class="text-[10px] mt-1">Sitio Web</span>
+            </a>
+            <a href="#" class="sidebar-item w-full flex flex-col items-center py-2">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-store-line ri-lg"></i>
+                </div>
+                <span class="text-[10px] mt-1">Inventarios</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col">
+        <!-- Header -->
+        <header class="bg-primary text-white py-2 px-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <span class="font-['Pacifico'] text-xl mr-1">KonnectPro-GDS</span>
+                <span class="text-xs font-light">Sistema de Administración de Boletos</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary">
+                    <i class="ri-user-line"></i>
+                </div>
+                <span>Fernando Pérez</span>
+            </div>
+        </header>
+
+        <!-- Search Bar -->
+        <div class="bg-white p-3 flex flex-wrap gap-3 border-b">
+            <div class="flex items-center gap-3 flex-1">
+                <div class="relative w-36">
+                    <select class="custom-select w-full border border-gray-300 rounded py-1.5 px-2 pr-8 text-sm">
+                        <option>Origen</option>
+                        <option>Santiago</option>
+                        <option>Arica</option>
+                        <option>Puerto Montt</option>
+                    </select>
+                </div>
+                <div class="relative w-36">
+                    <select class="custom-select w-full border border-gray-300 rounded py-1.5 px-2 pr-8 text-sm">
+                        <option>Destino</option>
+                        <option>Temuco</option>
+                        <option>Valdivia</option>
+                        <option>Antofagasta</option>
+                    </select>
+                </div>
+                <div class="w-28">
+                    <input type="date" class="w-full border border-gray-300 rounded py-1.5 px-2 text-sm" value="2025-05-29">
+                </div>
+                <button id="routeSearchBtn" class="bg-primary text-white py-1.5 px-4 rounded-button whitespace-nowrap text-sm">
+                    Buscar
+                </button>
+            </div>
+            <div class="flex items-center gap-2">
+                <input type="text" id="ticketNumber" placeholder="Número de Boleto" class="border border-gray-300 rounded py-1.5 px-2 text-sm w-40">
+                <div class="flex items-center">
+                    <input type="checkbox" id="history" class="mr-1">
+                    <label for="history" class="text-sm">Historial</label>
+                </div>
+                <button id="ticketSearchBtn" class="bg-primary text-white py-1.5 px-4 rounded-button whitespace-nowrap text-sm">
+                    Buscar Boleto
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 p-4 overflow-auto">
+            <!-- Main Dashboard Content -->
+            <div id="main-content" class="block">
+                <div class="bg-primary text-white py-2 px-4 rounded-t">
+                    <h2 class="font-medium">Panel Principal</h2>
+                </div>
+                <div class="bg-white p-4 rounded-b shadow">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                            <div class="flex items-center">
+                                <div class="p-3 bg-blue-500 rounded-full">
+                                    <i class="ri-ticket-line text-white text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-semibold text-gray-800">Boletos Vendidos</h3>
+                                    <p class="text-2xl font-bold text-blue-600">1,247</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+                            <div class="flex items-center">
+                                <div class="p-3 bg-green-500 rounded-full">
+                                    <i class="ri-money-dollar-circle-line text-white text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-semibold text-gray-800">Ingresos Hoy</h3>
+                                    <p class="text-2xl font-bold text-green-600">$45,892</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+                            <div class="flex items-center">
+                                <div class="p-3 bg-yellow-500 rounded-full">
+                                    <i class="ri-bus-line text-white text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-semibold text-gray-800">Rutas Activas</h3>
+                                    <p class="text-2xl font-bold text-yellow-600">23</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-purple-50 p-6 rounded-lg border border-purple-200">
+                            <div class="flex items-center">
+                                <div class="p-3 bg-purple-500 rounded-full">
+                                    <i class="ri-user-line text-white text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-semibold text-gray-800">Clientes</h3>
+                                    <p class="text-2xl font-bold text-purple-600">892</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <h3 class="text-lg font-medium mb-4">Accesos Rápidos</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <button class="p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 flex flex-col items-center" onclick="showPage('destinations')">
+                                <i class="ri-map-pin-line text-2xl text-primary mb-2"></i>
+                                <span class="text-sm">Destinos</span>
+                            </button>
+                            <button class="p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 flex flex-col items-center" onclick="showPage('destination-mappings')">
+                                <i class="ri-road-map-line text-2xl text-primary mb-2"></i>
+                                <span class="text-sm">Mapeo de Destinos</span>
+                            </button>
+                            <button class="p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 flex flex-col items-center" onclick="showPage('boarding-stages')">
+                                <i class="ri-bus-line text-2xl text-primary mb-2"></i>
+                                <span class="text-sm">Etapas de Embarque</span>
+                            </button>
+                            <button class="p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 flex flex-col items-center" onclick="showPage('boarding-mappings')">
+                                <i class="ri-route-line text-2xl text-primary mb-2"></i>
+                                <span class="text-sm">Mapeo de Embarque</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    console.log('Main content loaded:', document.getElementById('main-content'));
+                });
+            </script>
+
+            <!-- Destinations Content -->
+            <div id="destinations-content" class="hidden">
+                <div class="bg-primary text-white py-2 px-4 rounded-t">
+                    <h2 class="font-medium">Destinos</h2>
+                </div>
+                <div class="bg-white p-4 rounded-b shadow">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-medium">Lista de Destinos</h3>
+                        <button id="createDestination" class="flex items-center gap-1 border border-gray-300 rounded-button px-3 py-1.5 text-sm whitespace-nowrap bg-primary text-white hover:bg-blue-600">
+                            <div class="w-4 h-4 flex items-center justify-center">
+                                <i class="ri-add-line"></i>
+                            </div>
+                            <span>Crear Nuevo</span>
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table id="destinationsTable" class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gray-100 border-b border-gray-300">
+                                    <th class="text-left p-2 text-sm font-medium w-16">ID</th>
+                                    <th class="text-left p-2 text-sm font-medium">País</th>
+                                    <th class="text-left p-2 text-sm font-medium">Estado</th>
+                                    <th class="text-left p-2 text-sm font-medium">Ciudad</th>
+                                    <th class="text-left p-2 text-sm font-medium">Estado</th>
+                                    <th class="text-left p-2 text-sm font-medium">Nombre Wikipedia</th>
+                                    <th class="text-left p-2 text-sm font-medium">Aliases</th>
+                                    <th class="text-left p-2 text-sm font-medium">Es Prioritario</th>
+                                    <th class="text-left p-2 text-sm font-medium">Región</th>
+                                    <th class="text-left p-2 text-sm font-medium">Operador</th>
+                                    <th class="text-center p-2 text-sm font-medium w-32">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="destinationsTableBody">
+                                <tr class="table-row border-b border-gray-200">
+                                    <td class="p-2 text-sm">1638</td>
+                                    <td class="p-2 text-sm">Chile</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">Artificio</td>
+                                    <td class="p-2 text-sm">Activo</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">NO</td>
+                                    <td class="p-2 text-sm">chile</td>
+                                    <td class="p-2 text-sm">Turbus</td>
+                                    <td class="p-2 text-sm text-center">
+                                        <div class="flex justify-center gap-2">
+                                            <button class="text-primary hover:underline edit-destination" data-id="1638">Editar</button>
+                                            <button class="text-red-500 hover:underline delete-destination" data-id="1638">Borrar</button>
+                                            <button class="text-green-600 hover:underline show-destination" data-id="1638">Ver</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="table-row border-b border-gray-200">
+                                    <td class="p-2 text-sm">1639</td>
+                                    <td class="p-2 text-sm">Chile</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">Huertos</td>
+                                    <td class="p-2 text-sm">Activo</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">NO</td>
+                                    <td class="p-2 text-sm">chile</td>
+                                    <td class="p-2 text-sm">Buses Linatal</td>
+                                    <td class="p-2 text-sm text-center">
+                                        <div class="flex justify-center gap-2">
+                                            <button class="text-primary hover:underline edit-destination" data-id="1639">Editar</button>
+                                            <button class="text-red-500 hover:underline delete-destination" data-id="1639">Borrar</button>
+                                            <button class="text-green-600 hover:underline show-destination" data-id="1639">Ver</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="table-row border-b border-gray-200">
+                                    <td class="p-2 text-sm">1646</td>
+                                    <td class="p-2 text-sm">Chile</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">Santiago</td>
+                                    <td class="p-2 text-sm">Activo</td>
+                                    <td class="p-2 text-sm">Santiago</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">YES</td>
+                                    <td class="p-2 text-sm">chile</td>
+                                    <td class="p-2 text-sm">Santa María</td>
+                                    <td class="p-2 text-sm text-center">
+                                        <div class="flex justify-center gap-2">
+                                            <button class="text-primary hover:underline edit-destination" data-id="1646">Editar</button>
+                                            <button class="text-red-500 hover:underline delete-destination" data-id="1646">Borrar</button>
+                                            <button class="text-green-600 hover:underline show-destination" data-id="1646">Ver</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex justify-between items-center mt-4">
+                        <div class="text-sm">1359 Encontrados</div>
+                        <div class="flex items-center gap-2">
+                            <button class="flex items-center justify-center w-6 h-6 border border-gray-300 rounded">
+                                <i class="ri-arrow-left-s-line"></i>
+                            </button>
+                            <span class="text-sm">1 2 3 ... 91</span>
+                            <button class="flex items-center justify-center w-6 h-6 border border-gray-300 rounded">
+                                <i class="ri-arrow-right-s-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Destination Mappings Content -->
+            <div id="destination-mappings-content" class="hidden">
+                <div class="bg-primary text-white py-2 px-4 rounded-t">
+                    <h2 class="font-medium">Mapeo de Destinos</h2>
+                </div>
+                <div class="bg-white p-4 rounded-b shadow">
+                    <div class="mb-4">
+                        <label class="text-sm font-medium">Select Travel:</label>
+                        <select class="border border-gray-300 rounded p-2 text-sm w-48">
+                            <option>Gama Bus</option>
+                            <!-- Consider adding other travel options here if needed -->
+                        </select>
+                    </div>
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-medium">Lista de Mapeos de Destinos</h3>
+                        <button id="createDestinationMapping" class="flex items-center gap-1 border border-gray-300 rounded-button px-3 py-1.5 text-sm whitespace-nowrap bg-primary text-white hover:bg-blue-600">
+                            <div class="w-4 h-4 flex items-center justify-center">
+                                <i class="ri-add-line"></i>
+                            </div>
+                            <span>Crear Nuevo Mapeo</span>
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table id="destinationMappingsTable" class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gray-100 border-b border-gray-300">
+                                    <th class="text-left p-2 text-sm font-medium">Api city ID</th>
+                                    <th class="text-left p-2 text-sm font-medium">Our city ID</th>
+                                    <th class="text-left p-2 text-sm font-medium">Api city</th>
+                                    <th class="text-left p-2 text-sm font-medium">Our city</th>
+                                    <th class="text-center p-2 text-sm font-medium w-32">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-row border-b border-gray-200">
+                                    <td class="p-2 text-sm">1</td>
+                                    <td class="p-2 text-sm">23</td>
+                                    <td class="p-2 text-sm">Carahue, , Chile</td>
+                                    <td class="p-2 text-sm">Carahue, , Chile</td>
+                                    <td class="p-2 text-sm text-center">
+                                        <div class="flex justify-center gap-2">
+                                            <button class="text-primary hover:underline edit-destination-mapping">Editar</button>
+                                            <button class="text-red-500 hover:underline delete-destination-mapping">Borrar</button>
+                                            <button class="text-green-600 hover:underline show-destination-mapping">Ver</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="table-row border-b border-gray-200">
+                                    <td class="p-2 text-sm">2</td>
+                                    <td class="p-2 text-sm">53</td>
+                                    <td class="p-2 text-sm">Osorno, , Chile</td>
+                                    <td class="p-2 text-sm">Osorno, , Chile</td>
+                                    <td class="p-2 text-sm text-center">
+                                        <div class="flex justify-center gap-2">
+                                            <button class="text-primary hover:underline edit-destination-mapping">Editar</button>
+                                            <button class="text-red-500 hover:underline delete-destination-mapping">Borrar</button>
+                                            <button class="text-green-600 hover:underline show-destination-mapping">Ver</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="table-row border-b border-gray-200">
+                                    <td class="p-2 text-sm">3</td>
+                                    <td class="p-2 text-sm">896</td>
+                                    <td class="p-2 text-sm">Santiago, , Chile</td>
+                                    <td class="p-2 text-sm">Santiago, , Chile</td>
+                                    <td class="p-2 text-sm text-center">
+                                        <div class="flex justify-center gap-2">
+                                            <button class="text-primary hover:underline edit-destination-mapping">Editar</button>
+                                            <button class="text-red-500 hover:underline delete-destination-mapping">Borrar</button>
+                                            <button class="text-green-600 hover:underline show-destination-mapping">Ver</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex justify-between items-center mt-4">
+                        <div class="text-sm">32 Encontrados</div>
+                        <div class="flex items-center gap-2">
+                            <button class="flex items-center justify-center w-6 h-6 border border-gray-300 rounded">
+                                <i class="ri-arrow-left-s-line"></i>
+                            </button>
+                            <span class="text-sm">1 2 3</span>
+                            <button class="flex items-center justify-center w-6 h-6 border border-gray-300 rounded">
+                                <i class="ri-arrow-right-s-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Boarding Stages Content -->
+            <div id="boarding-stages-content" class="hidden">
+                <div class="bg-primary text-white py-2 px-4 rounded-t">
+                    <h2 class="font-medium">Etapas de Embarque</h2>
+                </div>
+                <div class="bg-white p-4 rounded-b shadow">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-medium">Etapas de Embarque</h3>
+                        <button id="createBoardingStage" class="flex items-center gap-1 border border-gray-300 rounded-button px-3 py-1.5 text-sm whitespace-nowrap bg-primary text-white hover:bg-blue-600">
+                            <div class="w-4 h-4 flex items-center justify-center">
+                                <i class="ri-add-line"></i>
+                            </div>
+                            <span>Crear Nuevo</span>
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table id="boardingStagesTable" class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gray-100 border-b border-gray-300">
+                                    <th class="text-left p-2 text-sm font-medium">Stage ID</th>
+                                    <th class="text-left p-2 text-sm font-medium">País</th>
+                                    <th class="text-left p-2 text-sm font-medium">Región</th>
+                                    <th class="text-left p-2 text-sm font-medium">Ciudad</th>
+                                    <th class="text-left p-2 text-sm font-medium">Terminal/Ubicación</th>
+                                    <th class="text-left p-2 text-sm font-medium">Nombre de Ciudad</th>
+                                    <th class="text-left p-2 text-sm font-medium">Latitud</th>
+                                    <th class="text-left p-2 text-sm font-medium">Longitud</th>
+                                    <th class="text-left p-2 text-sm font-medium">Bus Operator</th>
+                                    <th class="text-center p-2 text-sm font-medium">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-row border-b border-gray-200">
+                                    <td class="p-2 text-sm">1</td>
+                                    <td class="p-2 text-sm">Chile</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">Temuco</td>
+                                    <td class="p-2 text-sm">Terminal Rodoviario de Temuco</td>
+                                    <td class="p-2 text-sm">Temuco</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">Gama Bus</td>
+                                    <td class="p-2 text-sm text-center">
+                                        <div class="flex justify-center gap-2">
+                                            <button class="text-primary hover:underline edit-boarding-stage">Editar</button>
+                                            <button class="text-red-500 hover:underline delete-boarding-stage">Borrar</button>
+                                            <button class="text-green-600 hover:underline show-boarding-stage">Ver</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="table-row border-b border-gray-200">
+                                    <td class="p-2 text-sm">2</td>
+                                    <td class="p-2 text-sm">Chile</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">Santiago</td>
+                                    <td class="p-2 text-sm">Terminal Sur</td>
+                                    <td class="p-2 text-sm">Santiago</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">
+                                        <a href="#" class="text-blue-600 hover:underline bus-operator-varios">Varios</a>
+                                    </td>
+                                    <td class="p-2 text-sm text-center">
+                                        <div class="flex justify-center gap-2">
+                                            <button class="text-primary hover:underline edit-boarding-stage">Editar</button>
+                                            <button class="text-red-500 hover:underline delete-boarding-stage">Borrar</button>
+                                            <button class="text-green-600 hover:underline show-boarding-stage">Ver</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="table-row border-b border-gray-200">
+                                    <td class="p-2 text-sm">3</td>
+                                    <td class="p-2 text-sm">Chile</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">Santiago</td>
+                                    <td class="p-2 text-sm">Terminal San Borja</td>
+                                    <td class="p-2 text-sm">Santiago</td>
+                                    <td class="p-2 text-sm">-39.71547045662814</td>
+                                    <td class="p-2 text-sm">-73.15539151367599</td>
+                                    <td class="p-2 text-sm">Turbus</td>
+                                    <td class="p-2 text-sm text-center">
+                                        <div class="flex justify-center gap-2">
+                                            <button class="text-primary hover:underline edit-boarding-stage">Editar</button>
+                                            <button class="text-red-500 hover:underline delete-boarding-stage">Borrar</button>
+                                            <button class="text-green-600 hover:underline show-boarding-stage">Ver</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex justify-between items-center mt-4">
+                        <div class="text-sm">7221 Encontrados</div>
+                        <div class="flex items-center gap-2">
+                            <button class="flex items-center justify-center w-6 h-6 border border-gray-300 rounded">
+                                <i class="ri-arrow-left-s-line"></i>
+                            </button>
+                            <span class="text-sm">1... 479 480 481 482</span>
+                            <button class="flex items-center justify-center w-6 h-6 border border-gray-300 rounded">
+                                <i class="ri-arrow-right-s-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Boarding Stage Mappings Content -->
+            <div id="boarding-mappings-content" class="hidden">
+                <div class="bg-primary text-white py-2 px-4 rounded-t">
+                    <h2 class="font-medium">Mapeo de Etapas de Embarque</h2>
+                </div>
+                <div class="bg-white p-4 rounded-b shadow">
+                    <div class="mb-4">
+                        <label class="text-sm font-medium">Select Travel:</label>
+                        <select class="border border-gray-300 rounded p-2 text-sm w-48">
+                            <option>Gama Bus</option>
+                            <!-- Consider adding other travel options here if needed -->
+                        </select>
+                    </div>
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-medium">Lista de Mapeos de Etapas de Embarque</h3>
+                        <button id="createBoardingMapping" class="flex items-center gap-1 border border-gray-300 rounded-button px-3 py-1.5 text-sm whitespace-nowrap bg-primary text-white hover:bg-blue-600">
+                            <div class="w-4 h-4 flex items-center justify-center">
+                                <i class="ri-add-line"></i>
+                            </div>
+                            <span>Crear Nuevo Mapeo</span>
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table id="boardingMappingsTable" class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gray-100 border-b border-gray-300">
+                                    <th class="text-left p-2 text-sm font-medium w-16">Api Stage</th>
+                                    <th class="text-left p-2 text-sm font-medium">Our stage</th>
+                                    <th class="text-left p-2 text-sm font-medium">Our stage name</th>
+                                    <th class="text-left p-2 text-sm font-medium">Api stage name</th>
+                                    <th class="text-left p-2 text-sm font-medium">Api stage bundle</th>
+                                    <th class="text-left p-2 text-sm font-medium">Api stage longitude</th>
+                                    <th class="text-left p-2 text-sm font-medium">Area Name</th>
+                                    <th class="text-center p-2 text-sm font-medium w-32">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-row border-b border-gray-200">
+                                    <td class="p-2 text-sm">1</td>
+                                    <td class="p-2 text-sm">8,716</td>
+                                    <td class="p-2 text-sm">Terminal Sur, Santiago</td>
+                                    <td class="p-2 text-sm">Terminal Sur</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm text-center">
+                                        <div class="flex justify-center gap-2">
+                                            <button class="text-primary hover:underline edit-boarding-mapping">Editar</button>
+                                            <button class="text-red-500 hover:underline delete-boarding-mapping">Borrar</button>
+                                            <button class="text-green-600 hover:underline show-boarding-mapping">Ver</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="table-row border-b border-gray-200">
+                                    <td class="p-2 text-sm">44</td>
+                                    <td class="p-2 text-sm">9944</td>
+                                    <td class="p-2 text-sm">Puerto Montt Terminal, Puerto Montt</td>
+                                    <td class="p-2 text-sm">Terminal Puerto Montt</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm text-center">
+                                        <div class="flex justify-center gap-2">
+                                            <button class="text-primary hover:underline edit-boarding-mapping">Editar</button>
+                                            <button class="text-red-500 hover:underline delete-boarding-mapping">Borrar</button>
+                                            <button class="text-green-600 hover:underline show-boarding-mapping">Ver</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="table-row border-b border-gray-200">
+                                    <td class="p-2 text-sm">58</td>
+                                    <td class="p-2 text-sm">1996</td>
+                                    <td class="p-2 text-sm">Terminal de Osorno, Osorno</td>
+                                    <td class="p-2 text-sm">Terminal Osorno</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm">-</td>
+                                    <td class="p-2 text-sm text-center">
+                                        <div class="flex justify-center gap-2">
+                                            <button class="text-primary hover:underline edit-boarding-mapping">Editar</button>
+                                            <button class="text-red-500 hover:underline delete-boarding-mapping">Borrar</button>
+                                            <button class="text-green-600 hover:underline show-boarding-mapping">Ver</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex justify-between items-center mt-4">
+                        <div class="text-sm">40 Encontrados</div>
+                        <div class="flex items-center gap-2">
+                            <button class="flex items-center justify-center w-6 h-6 border border-gray-300 rounded">
+                                <i class="ri-arrow-left-s-line"></i>
+                            </button>
+                            <span class="text-sm">1 2 3</span>
+                            <button class="flex items-center justify-center w-6 h-6 border border-gray-300 rounded">
+                                <i class="ri-arrow-right-s-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div id="rightSidebar" class="w-64 bg-white border-l border-gray-200 transform transition-transform duration-300 fixed top-0 right-0 h-full shadow-lg" style="transform: translateX(100%);">
+        <div class="p-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-lg font-medium">Menu</h3>
+                <button id="closeSidebar" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700">
+                    <i class="ri-close-line ri-lg"></i>
+                </button>
+            </div>
+            <nav>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#" class="flex items-center gap-2 p-2 rounded hover:bg-gray-100 text-gray-700" data-page="destinations">
+                            <i class="ri-map-pin-line"></i>
+                            <span>Destinations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center gap-2 p-2 rounded hover:bg-gray-100 text-gray-700" data-page="destination-mappings">
+                            <i class="ri-road-map-line"></i>
+                            <span>Destinations Mappings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center gap-2 p-2 rounded hover:bg-gray-100 text-gray-700" data-page="boarding-stages">
+                            <i class="ri-bus-line"></i>
+                            <span>Boarding Stages</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center gap-2 p-2 rounded hover:bg-gray-100 text-gray-700" data-page="boarding-mappings">
+                            <i class="ri-route-line"></i>
+                            <span>Boarding Stage Mappings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Toggle Sidebar Button -->
+    <button id="toggleSidebar" class="fixed right-4 top-20 bg-primary text-white p-2 rounded-full shadow-lg z-50">
+        <i class="ri-menu-fold-line"></i>
+    </button>
+
+    <!-- Include all modals from modals.html here -->
+    <!-- Destination Edit Modal -->
+    <div id="destinationEditModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg w-[600px] p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-medium">Editar Destino</h3>
+                <button class="close-modal text-gray-500 hover:text-gray-700">
+                    <i class="ri-close-line ri-lg"></i>
+                </button>
+            </div>
+            <form class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">País</label>
+                        <select name="country" class="w-full border border-gray-300 rounded p-2 text-sm">
+                            <option value="">Seleccionar País</option>
+                            <option value="Chile">Chile</option>
+                            <option value="Mexico">Chile</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Región</label>
+                        <input type="text" name="state" class="w-full border border-gray-300 rounded p-2 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Ciudad</label>
+                        <input type="text" name="city" class="w-full border border-gray-300 rounded p-2 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
+                        <select name="status" class="w-full border border-gray-300 rounded p-2 text-sm">
+                            <option value="Activo">Activo</option>
+                            <option value="Inactivo">Inactivo</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nombre Wikipedia</label>
+                        <input type="text" name="wikipedia" class="w-full border border-gray-300 rounded p-2 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Aliases</label>
+                        <input type="text" name="aliases" class="w-full border border-gray-300 rounded p-2 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Es Prioritario</label>
+                        <select name="priority" class="w-full border border-gray-300 rounded p-2 text-sm">
+                            <option value="NO">NO</option>
+                            <option value="YES">YES</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Región</label>
+                        <input type="text" name="region" class="w-full border border-gray-300 rounded p-2 text-sm">
+                    </div>
+                </div>
+                <div class="flex justify-end gap-2 mt-6">
+                    <button type="button" class="cancel-modal px-4 py-2 border border-gray-300 rounded-button text-sm">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-primary text-white rounded-button text-sm">Actualizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- More modals will continue... -->
+
+    <!-- Modal de Operadores de Buses -->
+    <div id="operatorsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg w-[500px] max-h-[80vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-medium">Operadores de Buses</h3>
+                    <button id="closeOperatorsModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="ri-close-line text-2xl"></i>
+                    </button>
+                </div>
+                <div class="mb-4">
+                    <p class="text-gray-600 mb-4">Los siguientes operadores utilizan esta etapa de embarque:</p>
+                    <div id="operatorsList" class="space-y-2">
+                        <!-- Los operadores se cargarán aquí dinámicamente -->
+                    </div>
+                </div>
+                <div class="flex justify-end mt-6">
+                    <button id="closeOperatorsModalBtn" class="px-4 py-2 bg-primary text-white rounded hover:bg-blue-600 transition-colors">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+        // Datos de ejemplo de operadores de buses chilenos
+        const chileanBusOperators = [
+            { id: 1, name: 'Turbus', website: 'https://www.turbus.cl', phone: '600 320 3200' },
+            { id: 2, name: 'Pullman Bus', website: 'https://www.pullman.cl', phone: '600 320 3200' },
+            { id: 3, name: 'Buses JAC', website: 'https://www.busesjac.cl', phone: '600 202 0555' },
+            { id: 4, name: 'Cóndor Bus', website: 'https://www.condorbus.cl', phone: '600 300 0500' },
+            { id: 5, name: 'Buses Jet Sur', website: 'https://www.busesjet.cl', phone: '600 300 9000' },
+            { id: 6, name: 'Buses Bio Bio', website: 'https://www.busesbiobio.cl', phone: '600 410 0000' },
+            { id: 7, name: 'Buses Romani', website: 'https://www.busesromani.cl', phone: '600 400 0000' },
+            { id: 8, name: 'Buses Cóndor', website: 'https://www.busescondor.cl', phone: '600 400 0101' },
+            { id: 9, name: 'Buses Jota Ewert', website: 'https://www.busesjotaewert.cl', phone: '600 400 0202' },
+            { id: 10, name: 'Buses Nilahue', website: 'https://www.nilahue.cl', phone: '600 400 0303' }
+        ];
+
+        // Función para abrir el modal con los operadores
+        function showOperatorsModal() {
+            const modal = document.getElementById('operatorsModal');
+            const operatorsList = document.getElementById('operatorsList');
+            
+            // Limpiar lista existente
+            operatorsList.innerHTML = '';
+            
+            // Agregar cada operador a la lista
+            chileanBusOperators.forEach(operator => {
+                const operatorElement = document.createElement('div');
+                operatorElement.className = 'p-3 border border-gray-200 rounded-lg hover:bg-gray-50';
+                operatorElement.innerHTML = `
+                    <div class="font-medium text-gray-800">${operator.name}</div>
+                    <div class="text-sm text-gray-600">
+                        <a href="${operator.website}" target="_blank" class="text-blue-600 hover:underline">
+                            ${operator.website.replace('https://', '')}
+                        </a>
+                    </div>
+                    <div class="text-sm text-gray-600">
+                        <i class="ri-phone-line mr-1"></i> ${operator.phone}
+                    </div>
+                `;
+                operatorsList.appendChild(operatorElement);
+            });
+            
+            // Mostrar el modal
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Función para cerrar el modal
+        function closeOperatorsModal() {
+            document.getElementById('operatorsModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event listeners para el modal
+        document.addEventListener('DOMContentLoaded', () => {
+            // Cerrar al hacer clic en el botón de cerrar
+            document.getElementById('closeOperatorsModal').addEventListener('click', closeOperatorsModal);
+            document.getElementById('closeOperatorsModalBtn').addEventListener('click', closeOperatorsModal);
+            
+            // Cerrar al hacer clic fuera del contenido del modal
+            document.getElementById('operatorsModal').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('operatorsModal')) {
+                    closeOperatorsModal();
+                }
+            });
+            
+            // Asignar evento de clic a los enlaces "Varios" en la tabla
+            document.querySelectorAll('.bus-operator-varios').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showOperatorsModal();
+                });
+            });
+        });
+    </script>
+</body>
+</html>

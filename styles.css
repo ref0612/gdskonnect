@@ -1,0 +1,365 @@
+/* KonnectPro-GDS Custom Styles */
+
+/* Ensure main content is visible */
+#main-content {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    width: 100% !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+#main-content.hidden {
+    display: none !important;
+}
+
+/* Ensure other pages are properly hidden */
+#destinations-content,
+#destination-mappings-content,
+#boarding-stages-content,
+#boarding-mappings-content {
+    display: none;
+}
+
+#destinations-content:not(.hidden),
+#destination-mappings-content:not(.hidden),
+#boarding-stages-content:not(.hidden),
+#boarding-mappings-content:not(.hidden) {
+    display: block !important;
+}
+
+/* Icon font fix for Remix Icons */
+:where([class^="ri-"])::before { 
+    content: "\f3c2"; 
+}
+
+/* Sidebar active state */
+.sidebar-item.active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Table styling */
+.table-row:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.table-row:hover {
+    background-color: #e3f2fd;
+}
+
+/* Focus styles for inputs and selects */
+input:focus, 
+select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Custom select dropdown arrow */
+.custom-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23666666'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1em;
+}
+
+/* Button hover effects */
+.sidebar-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: background-color 0.2s ease;
+}
+
+/* Card hover effects */
+.bg-blue-50:hover,
+.bg-green-50:hover,
+.bg-yellow-50:hover,
+.bg-purple-50:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+/* Quick access buttons */
+.grid button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+/* Modal animations */
+.fixed.inset-0 {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fixed.inset-0 > div {
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Notification styles */
+.notification {
+    animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Loading states */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+/* Right sidebar transition */
+#rightSidebar {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Form validation styles */
+.invalid {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+.valid {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+}
+
+/* Success/Error message styles */
+.success-message {
+    background-color: #10b981;
+    color: white;
+}
+
+.error-message {
+    background-color: #ef4444;
+    color: white;
+}
+
+.warning-message {
+    background-color: #f59e0b;
+    color: white;
+}
+
+.info-message {
+    background-color: #3b82f6;
+    color: white;
+}
+
+/* Table action buttons */
+.table-row td button {
+    transition: all 0.2s ease;
+}
+
+.table-row td button:hover {
+    transform: scale(1.05);
+}
+
+/* Stats cards gradient */
+.stats-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .w-\[55px\] {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        height: auto;
+        z-index: 1000;
+    }
+    
+    .w-\[55px\] .py-4 {
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 0.5rem;
+    }
+    
+    .flex-1 {
+        margin-bottom: 60px;
+    }
+    
+    #rightSidebar {
+        width: 100%;
+    }
+    
+    .overflow-x-auto {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Print styles */
+@media print {
+    .sidebar-item,
+    #rightSidebar,
+    #toggleSidebar,
+    .fixed {
+        display: none !important;
+    }
+    
+    .flex-1 {
+        width: 100% !important;
+    }
+    
+    .bg-primary {
+        background-color: #000 !important;
+        color: #fff !important;
+    }
+}
+
+/* Accessibility improvements */
+.focus-visible:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .border-gray-300 {
+        border-color: #000;
+    }
+    
+    .text-gray-500 {
+        color: #000;
+    }
+    
+    .bg-gray-100 {
+        background-color: #f0f0f0;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Dark mode preparation */
+@media (prefers-color-scheme: dark) {
+    /* Add dark mode styles here if needed */
+}
+
+/* Utilities */
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.border-dashed {
+    border-style: dashed;
+}
+
+.cursor-not-allowed {
+    cursor: not-allowed;
+}
+
+.select-none {
+    user-select: none;
+}
+
+/* Animation classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+.slide-up {
+    animation: slideUp 0.5s ease-out;
+}
+
+.bounce-in {
+    animation: bounceIn 0.6s ease-out;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
