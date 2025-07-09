@@ -1,0 +1,33 @@
+{
+  "extends": ["html-validate:recommended"],
+  "rules": {
+    "void-style": "omit",
+    "close-order": "error",
+    "element-required-attributes": "error",
+    "no-missing-references": "error",
+    "no-unknown-elements": "error",
+    "script-element": "error",
+    "valid-id": "error",
+    "heading-level": "error",
+    "no-redundant-role": "error",
+    "prefer-native-element": "error",
+    "no-autoplay": "error",
+    "require-sri": "off",
+    "doctype-style": "lowercase",
+    "attr-case": "lowercase",
+    "element-case": "lowercase",
+    "no-inline-style": "off",
+    "no-trailing-whitespace": "error",
+    "aria-label-misuse": "error",
+    "aria-hidden-body": "error",
+    "wcag/h37": "error",
+    "wcag/h67": "error"
+  },
+  "elements": [
+    "html5"
+  ],
+  "plugins": ["<rootDir>/html-validate-plugins.js"],
+  "transform": {
+    "^.*\\.html$": "<rootDir>/html-validate-transform.js"
+  }
+}
